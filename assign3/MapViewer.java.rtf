@@ -1,0 +1,143 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import java.awt.*;\
+import javax.swing.*;\
+import java.lang.*;\
+\
+/**\
+ *  A class that displays a map based on data held in a MapGrid object.\
+ *\
+ *  @authors Christina He and Audrey Dawson\
+ *  @version Wednesday 20, 2017\
+ */\
+public class MapViewer extends JComponent \{\
+\
+    /** field to keep track of the MapGrid to be displayed */\
+    private MapGrid map;\
+    /** field to specifiy magnification of view */\
+    private int magnification;\
+    /**field for starting coordinates/offset */\
+    private Point coordinate;\
+    /** field for sixe of viewing window */\
+    private int pixels;\
+   \
+    /** default constructor that reads in MapGrid object and initializes all fields \
+     * \
+     * @param map mapGrid object\
+     */\
+    public MapViewer(MapGrid map) \{\
+	this.map = map;\
+	magnification = 10;\
+	coordinate = new Point(0,0);\
+	setPreferredSize(new Dimension(500,500));\
+	setMinimumSize(new Dimension(500,500));\
+	pixels = 500;\
+\}\
+    /** constructor that reads in MapGrid object and initializes all fields\
+     * \
+     * @param map mapGrid object\
+     * @param x x value of offset point\
+     * @param y y value of offset point\
+     * @param magnification value of magnification \
+     */\
+    public MapViewer(MapGrid map, int x, int y, int magnification, int pixels) \{\
+	this.map = map;\
+	this.magnification = magnification;\
+	coordinate = new Point(x,y);\
+	setPreferredSize(new Dimension(pixels,pixels));\
+	setMinimumSize(new Dimension(pixels,pixels));\
+	this.pixels = pixels;\
+\}\
+    /** accessor for magnification\
+     *\
+     * @return magnification value of magnification\
+     */\
+    public int getMag() \{\
+	return magnification;    \
+\}\
+\
+    /** modifier for magnification\
+     * \
+     * @param magnification value of magnification\
+     */\
+    public void setMag(int magnification) \{\
+	this.magnification = magnification;    \
+\}\
+\
+    /** accessor for starting coordinate/offset\
+     *\
+     * @return coordinate offset point\
+     */\
+    public Point getCoordinate() \{\
+	return coordinate;    \
+\}\
+\
+    /** modifier for starting coordinate/offset \
+     * \
+     * @param x x value of offset point\
+     * @param y y value of offset point \
+     */\
+    public void setCoordinate(int x, int y) \{\
+	this.coordinate = new Point(x,y);    \
+\}\
+\
+    /** accessor for size of window \
+     *\
+     * @return pixels size of viewing window\
+     */\
+    public int getPixels()\{\
+	return pixels;\
+    \}\
+\
+    /** modifer for size of window\
+     *\
+     * @param pixels size of viewing window\
+     */\
+    public void setPixels(int pixels) \{\
+	this.pixels = pixels;\
+    \}\
+\
+    /**\
+     * overrides JComponent paintComponent method and draws the MapGrid object\
+     *\
+     * @param g AWT Graphics object\
+     */\
+    public void paintComponent(Graphics g) \{\
+\
+	// variable that holds the offset point  y value\
+	int yCoord = (int)coordinate.getY();\
+	// variable that holds the offset point x value\
+	int xCoord = (int)coordinate.getX();\
+	/* sets color outside of map */ \
+	g.setColor(Color.BLACK);\
+	g.fillRect(0,0,pixels, pixels);\
+\
+	/* loops through the MapGrid colors array to draw the map at the given magnification from the given offset*/\
+	for (int i = 0; i<map.getGridHeight(); i++) \{\
+	    for (int j = 0; j<map.getGridWidth(); j++) \{\
+		// sets the color based on the color data in MapGrid object\
+		g.setColor(map.getCellColor(i,j));\
+		// fills a rectangle starting from x and y coordinates based on offset and magnification\
+		g.fillRect((i-xCoord)*magnification, (j-yCoord)*magnification, magnification, magnification);\
+	    \}\
+	\}\
+\
+	\
+	\}\
+\
+\}\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}

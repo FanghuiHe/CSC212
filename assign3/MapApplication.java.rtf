@@ -1,0 +1,94 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import java.awt.*;\
+import javax.swing.*;\
+import java.lang.reflect.*;\
+\
+/**\
+ *  a Java Swing application for assignment 2 of CSC 212.\
+ *  It create two windows with differing views of a MapGrid object.\
+ *\
+ *  @authors  Audrey Dawson and Christina He\
+ *  @version Wednesday 20, 2017\
+ */\
+public class MapApplication \{\
+    /**\
+     * Create the GUI and show it.  For thread safety,\
+     * this method should be invoked from the\
+     * event-dispatching thread.\
+     */\
+    public static void setupWindows() \{\
+        // Make sure we have nice window decorations.\
+        JFrame.setDefaultLookAndFeelDecorated(true);\
+\
+        // Create and set up the windows.\
+        JFrame frame1 = new JFrame("Map #1");\
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\
+        JFrame frame2 = new JFrame("Map #2");\
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\
+	JFrame frame3 = new JFrame("Map #3");\
+        frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\
+\
+        // Set up map:\
+	// call constructor for new MapGrid\
+        MapGrid map;\
+	// allocate the size of the MapGrid colors array \
+        map = new MapGrid(50, 50);\
+	// change the colors held in MapGrid\
+	map.changeMapRect(10,40,15,25,Color.YELLOW);\
+	map.changeMapRect(15,20,20,25,Color.GREEN);\
+	map.changeMapRect(30,35,20,25,Color.GREEN);\
+	map.changeMapRect(5,10,20,35,Color.CYAN);\
+	map.changeMapRect(40,45,20,35,Color.CYAN);\
+	map.changeMapRect(15,35,40,50,Color.MAGENTA);\
+	map.changeMapRect(20,25,40,50,Color.WHITE);\
+	map.changeMapRect(30,35,40,45,Color.WHITE);\
+	map.changeMapRect(0,50,0,3,Color.orange);\
+\
+\
+\
+        // Create and add the viewers:\
+        MapViewer view1, view2, view3;\
+	//creates new view of map that will fill 500X500 display screen\
+        view1 = new MapViewer(map);\
+	// very tiny 50X50 pixel image starting from 0,0\
+	view2 = new MapViewer(map, 0,0, 1, 100);\
+	// offset point of -10,-10, and magnification of 10\
+	view3 = new MapViewer(map, -10, -10, 10, 400);\
+\
+        // calls the constructors for the MapViewer objects\
+        frame1.getContentPane().add(view1);\
+	frame2.getContentPane().add(view2);\
+        frame3.getContentPane().add(view3);\
+\
+        // Display the windows:\
+        frame1.pack();\
+        frame1.setVisible(true);\
+	frame2.pack();\
+	frame2.setVisible(true);\
+	frame3.pack();\
+	frame3.setVisible(true);\
+    \}\
+\
+    public static void main(String[] args) throws Throwable \{\
+        // set up windows with viewers:\
+        try \{\
+            javax.swing.SwingUtilities.invokeAndWait(new Runnable() \{\
+		    public void run() \{\
+			setupWindows();\
+		    \}\
+		\});\
+        \} catch (InterruptedException e) \{\
+            System.out.println("Couldn't create GUI.");\
+            System.exit(-1);\
+        \} catch (InvocationTargetException e) \{\
+            throw(e.getTargetException());\
+        \}\
+    \}\
+\}\
+}

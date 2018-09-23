@@ -1,0 +1,89 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 import java.awt.*;\
+\
+/**\
+ * Class to create a MapGrid Object, access it, and modify it.\
+ *\
+ * @authors Christina He and Audrey Dawson\
+ * @version Wednesday 20, 2017\
+ */\
+\
+public class MapGrid \{\
+    /** array of Colors */\
+    private Color[][] colors;\
+\
+    /** constructor, sets initial color of each cell to BLUE\
+     *\
+     *  @param height number of rows\
+     *  @param width number of columns\
+     */\
+    public MapGrid(int height, int width) \{\
+        colors = new Color[height][width];\
+        for (int i = 0; i < colors.length; i++) \{\
+            for (int j = 0; j<colors[0].length; j++) \{\
+                colors[i][j] = Color.BLUE;\
+            \}\
+        \}\
+    \}\
+\
+    /** accessor for height of array\
+     * \
+     * @return number of rows\
+     */\
+    public int getGridHeight() \{\
+        return colors.length;\
+    \}\
+\
+    /** accessor for width of array \
+     *\
+     * @return number of columns\
+     */\
+    public int getGridWidth() \{\
+        return colors[0].length;\
+    \}\
+\
+    /** accessor for color of specific cell\
+     *\
+     * @param x x value of offset point\
+     * @param y y value of offset point\
+     * @return color held in array at index (x,y)\
+     */\
+    public Color getCellColor(int x, int y) \{\
+        return colors[x][y];\
+    \}\
+\
+    /** modifier of map using a single cell\
+     * \
+     * @param x x value of offset point\
+     * @param y y value of offset point\
+     * @param color color to be placed in array\
+     */\
+    public void changeMapAtPoint(int x, int y, Color color) \{\
+        colors[x][y] = color;\
+    \}\
+\
+    /** modifier of the map using rectangles \
+     * @param startX starting x value of array\
+     * @param endX ending x value of array\
+     * @param startY starting y value of array\
+     * @param endY ending x value of array\
+     * @param color color to be placed in array\
+     */\
+    public void changeMapRect(int startX, int endX, int startY, int endY, Color color) \{\
+	for (int i = startY; i <endY; i++)\{\
+	    for (int j = startX; j < endX; j++) \{\
+		colors[j][i] = color;	    \
+	    \}\
+	\}\
+\
+    \}\
+\
+     \
+\}\
+}
